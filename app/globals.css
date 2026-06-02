@@ -3,22 +3,72 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #FAFAF7;
+  --ink: #1A1A2E;
+  --sq-red: #E8272A;
+  --sq-green: #5CBF2A;
+  --sq-yellow: #F5C842;
+  --surface: #EEEEEA;
+  --muted: #666666;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FAFAF7;
+  color: #1A1A2E;
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Notebook lined-paper texture */
+.notebook-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(0, 0, 0, 0.04) 27px,
+    rgba(0, 0, 0, 0.04) 28px
+  );
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid #E8272A;
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(232, 39, 42, 0.12);
+  color: #1A1A2E;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAFAF7;
+}
+::-webkit-scrollbar-thumb {
+  background: #CCCCCC;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* Hide scrollbar for horizontal pill scroller on mobile */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 @layer utilities {
   .text-balance {

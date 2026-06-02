@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BAM! Quiz
 
-## Getting Started
+A free, fan-made statistics and machine learning study tool based on [Josh Starmer's StatQuest YouTube playlists](https://www.youtube.com/@statquest) — the best free ML and stats education on the internet.
 
-First, run the development server:
+> Fan-made study tool. Not affiliated with or endorsed by Josh Starmer or StatQuest.
+
+## Features
+
+- **12,600+ questions** across 50 topics (Statistics + Machine Learning)
+- 3 difficulty levels: Beginner / Intermediate / Advanced
+- 5 question styles: Conceptual / Calculation / Scenario / Misconception / Interpretation
+- Playlist switcher: Statistics ↔ Machine Learning
+- Topic explorer — drill into any of the 40 topics in the UI
+- Immediate feedback with explanations
+- No repeat questions within a session (sessionStorage dedup)
+- Keyboard navigation — `1`–`4` to select, `Enter` to advance
+- Zero runtime API dependencies — all questions are static JSON
+
+## Design
+
+Whiteboard/chalk aesthetic inspired by Josh's teaching style. Key tokens: `paper` (#FAFAF7), `ink` (#1A1A2E), `sq-red` (#E8272A), `sq-green` (#5CBF2A). Fonts: Patrick Hand (headings/buttons), Nunito (body), Courier Prime (notation). See `CLAUDE.md` for the full design system reference.
+
+## Setup
 
 ```bash
+npm install
+cp .env.local.example .env.local   # add GEMINI_API_KEY
+npm run generate                    # generate both playlists (~60–90 min total)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Get a free Gemini API key at https://aistudio.google.com
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Generation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run generate                         # both playlists (default)
+npm run generate -- --playlist=stats     # Statistics only (~35 min)
+npm run generate -- --playlist=ml        # Machine Learning only (~45 min)
+```
 
-## Learn More
+Progress is saved to `public/questions/.progress.json` after every batch — if interrupted, re-run and it skips completed batches automatically. Commit the generated JSON files; Vercel serves them as static assets (no env vars needed at deploy time).
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy to Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Push to GitHub → connect to Vercel → deploy. No environment variables required. Question JSON is cached for 24h via `vercel.json` headers.
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/
+  page.tsx              Landing page (hero, playlist cards, topic explorer)
+  quiz/
+    QuizClient.tsx      Quiz UI — filters, question card, keyboard nav, finish flow
+  results/
+    ResultsClient.tsx   Score, topic breakdown, retake actions
+components/
+  HamburgerNav.tsx      Fixed top bar + full-screen menu overlay
+lib/
+  types.ts              TypeScript interfaces
+  topics.ts             Topic definitions (20 Stats + 20 ML)
+  questions.ts          Question loading, shuffling, dedup utilities
+public/questions/       Statistics JSON files (20 topics)
+public/questions/ml/    Machine Learning JSON files (30 generated, 20 in UI)
+scripts/
+  generate-questions.ts Gemini-powered bulk generator (run locally)
+  create-stubs.ts       Creates empty JSON stubs before generation
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Credits
+
+All credit for the stats and ML education goes to **Josh Starmer** and the [StatQuest YouTube channel](https://www.youtube.com/@statquest).
+
+- [Statistics Fundamentals playlist](https://youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9)
+- [Machine Learning playlist](https://youtube.com/playlist?list=PLblh5JKOoLULU3jFkdoW4MkAbfCjCs1vU)

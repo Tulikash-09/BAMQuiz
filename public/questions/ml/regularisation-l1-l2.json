@@ -1,0 +1,1788 @@
+[
+  {
+    "id": "reg-001",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "purpose",
+    "difficulty": "beginner",
+    "style": "conceptual",
+    "question": "What problem does regularisation solve in machine learning?",
+    "options": [
+      "It makes models train faster",
+      "It penalises model complexity, discouraging overfitting by keeping weights small",
+      "It increases model capacity",
+      "It replaces cross-validation"
+    ],
+    "correctIndex": 1,
+    "explanation": "Regularisation adds a penalty term to the loss function for large weights. This prevents the model from fitting noise in the training data, encouraging simpler solutions that generalise better. It introduces a controlled amount of bias to reduce variance.",
+    "playlist": "machine-learning"
+  },
+  {
+    "id": "reg-002",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 Ridge",
+    "difficulty": "intermediate",
+    "style": "conceptual",
+    "question": "L2 regularisation (Ridge) penalises the sum of squared weights. What effect does this have on weights?",
+    "options": [
+      "Sets many weights exactly to zero",
+      "Shrinks all weights towards zero but rarely to exactly zero — all features are retained but with smaller coefficients",
+      "Doubles all weights",
+      "Only affects the largest weights"
+    ],
+    "correctIndex": 1,
+    "explanation": "L2 penalty = lambda * sum(w_i^2). The gradient penalises proportionally to weight magnitude, pulling all weights toward zero but creating smooth shrinkage. Unlike L1, L2 rarely produces exact zeros — it's better when all features are somewhat relevant.",
+    "playlist": "machine-learning"
+  },
+  {
+    "id": "reg-003",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 Lasso",
+    "difficulty": "intermediate",
+    "style": "conceptual",
+    "question": "Why does L1 regularisation (Lasso) produce sparse solutions (many zero weights)?",
+    "options": [
+      "Because it uses the square of weights",
+      "Because L1's penalty has a constant gradient (unlike L2's proportional gradient), creating a tendency to push weights all the way to zero",
+      "Because L1 removes features before training",
+      "Because it is stronger than L2 by default"
+    ],
+    "correctIndex": 1,
+    "explanation": "L1 penalty = lambda * sum(|w_i|). The gradient of |w| is ±1 (constant magnitude), which pulls weights uniformly toward zero. When a weight is small, this constant pull drives it to exactly zero. This makes L1 effectively perform feature selection.",
+    "playlist": "machine-learning"
+  },
+  {
+    "id": "reg-004",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "choosing L1 vs L2",
+    "difficulty": "intermediate",
+    "style": "scenario",
+    "question": "You have 1000 features but suspect only 20 are truly relevant. Which regularisation is most appropriate?",
+    "options": [
+      "L2 Ridge — it handles high dimensions better",
+      "L1 Lasso — it will zero out irrelevant features, effectively performing feature selection",
+      "No regularisation — use all features",
+      "L2 always outperforms L1"
+    ],
+    "correctIndex": 1,
+    "explanation": "When many features are irrelevant, L1 is preferred because it produces sparse models — coefficients for irrelevant features are driven to zero. Ridge keeps all features with small weights, making interpretation harder. Elastic Net combines both for robustness.",
+    "playlist": "machine-learning"
+  },
+  {
+    "id": "reg-005",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "lambda",
+    "difficulty": "intermediate",
+    "style": "conceptual",
+    "question": "What happens when the regularisation strength lambda is set very high?",
+    "options": [
+      "The model overfits",
+      "All weights are pushed toward zero — the model underfits, becoming too simple to capture the true relationship",
+      "Only L1 is affected; L2 is unchanged",
+      "The model becomes non-differentiable"
+    ],
+    "correctIndex": 1,
+    "explanation": "Very high lambda overwhelms the data-fitting component of the loss — the model prioritises small weights over accuracy. All coefficients approach zero; the model makes approximately constant predictions. The optimal lambda is found via cross-validation.",
+    "playlist": "machine-learning"
+  },
+  {
+    "id": "regu-001",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 Penalty Impact",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "A model has two features with coefficients w1=10 and w2=2. The current sum of squared errors is 50. If you apply L2 regularization with a penalty term λ=1, which coefficient will be shrunk more significantly during the next step of gradient descent and why?",
+    "options": [
+      "w1, because L2 penalizes larger coefficients more heavily as it squares them.",
+      "w2, because smaller coefficients are easier to push toward zero.",
+      "Both will shrink by the exact same amount because λ is applied equally.",
+      "Neither will shrink because the L2 penalty only applies to the intercept."
+    ],
+    "correctIndex": 0,
+    "explanation": "L2 regularization adds the sum of squared weights to the loss function. The derivative of w^2 is 2w, meaning the penalty force is proportional to the magnitude of the weight. Thus, w1 (10) experiences a much stronger 'pull' toward zero than w2 (2)."
+  },
+  {
+    "id": "regu-002",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 Sparsity",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "Suppose you have a feature with a coefficient of 0.5. You apply L1 regularization with a penalty λ of 0.8. In L1 (Lasso), the weight update involves subtracting a constant amount proportional to λ. What happens to this coefficient?",
+    "options": [
+      "It shrinks to 0.1.",
+      "It becomes exactly 0.",
+      "It remains 0.5, but the variance decreases.",
+      "It increases to 1.3 to compensate for the penalty."
+    ],
+    "correctIndex": 1,
+    "explanation": "L1 regularization subtracts a constant amount (the sign of the weight times λ) from the coefficient. If the penalty λ is greater than the current weight magnitude, the weight is clipped to zero, creating the sparsity effect characteristic of Lasso."
+  },
+  {
+    "id": "regu-003",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Bias-Variance Tradeoff",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "A model has a training error of 5 and a test error of 25. After applying L2 regularization, the training error increases to 10. If the test error drops to 15, what is the 'cost' of the regularization in terms of bias?",
+    "options": [
+      "The bias increased by 5 units.",
+      "The bias decreased by 10 units.",
+      "The bias is irrelevant because variance decreased.",
+      "The bias increased by 15 units."
+    ],
+    "correctIndex": 0,
+    "explanation": "Bias is represented by the error on the training set. By increasing the training error from 5 to 10, the model is intentionally becoming 'less flexible' or 'more biased' to reduce the overfitting (the gap between train and test error)."
+  },
+  {
+    "id": "regu-004",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Coefficient Scaling",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "If you have two features, one measured in meters and one in millimeters, and you apply L2 regularization without scaling the data first, what is the likely outcome?",
+    "options": [
+      "The millimeter feature will be penalized far more, even if its true importance is lower.",
+      "The meter feature will be penalized more because its coefficient will naturally be larger.",
+      "Both features will be treated equally regardless of scale.",
+      "The model will automatically scale the coefficients to match the units."
+    ],
+    "correctIndex": 0,
+    "explanation": "Because L2 squares the coefficients, features with naturally smaller values (like millimeters) require larger coefficients to represent the same relationship. L2 will penalize these large coefficients heavily, effectively ignoring the feature despite its potential utility."
+  },
+  {
+    "id": "regu-005",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Elastic Net Hybrid",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "You are using Elastic Net with a 50/50 mix of L1 and L2. If two features are highly correlated, what does the calculation of the penalty imply?",
+    "options": [
+      "L2 will keep both coefficients, while L1 tries to zero one out; the hybrid keeps both.",
+      "L1 will force one to zero, and L2 will force the other to zero.",
+      "The model will sum the coefficients and multiply by 100%.",
+      "The penalty will be zero because the features cancel each other out."
+    ],
+    "correctIndex": 0,
+    "explanation": "Lasso (L1) tends to pick one feature from a correlated group and zero out the others. Ridge (L2) tends to shrink them together. Elastic Net uses both, allowing it to retain correlated features (via L2) while still performing feature selection (via L1)."
+  },
+  {
+    "id": "regu-006",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Ridge Regression Shrinkage",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "In a Ridge regression model, if λ (lambda) approaches infinity, what happens to the weights?",
+    "options": [
+      "They all approach 0.",
+      "They approach the OLS (Ordinary Least Squares) solution.",
+      "They become negative.",
+      "They approach 1."
+    ],
+    "correctIndex": 0,
+    "explanation": "As λ increases, the penalty term dominates the loss function. To minimize the sum of squared errors plus infinity times the sum of squared weights, the weights must shrink toward zero to minimize the total cost."
+  },
+  {
+    "id": "regu-007",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 vs L2 Geometry",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "Imagine the error surface is a circular contour. L1 creates a diamond-shaped constraint region, and L2 creates a circular one. If the error center is at (3,0), where will the L1 solution hit the constraint?",
+    "options": [
+      "Exactly on the corner of the diamond at (k, 0).",
+      "On the edge of the diamond where both x and y are non-zero.",
+      "It will not hit the constraint until λ is zero.",
+      "It will fluctuate between (0, 3) and (3, 0)."
+    ],
+    "correctIndex": 0,
+    "explanation": "The 'corners' of the L1 diamond are on the axes. If the optimal point is (3,0), the L1 diamond will contact the error contour at the vertex on the x-axis, setting the y-coefficient to zero."
+  },
+  {
+    "id": "regu-008",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Penalty Magnitude",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "If the sum of squared residuals is 100 and you have two weights [10, 10], what is the total cost for L2 with λ=0.1?",
+    "options": [
+      "120",
+      "100",
+      "110",
+      "102"
+    ],
+    "correctIndex": 0,
+    "explanation": "Total Cost = SSE + λ * (w1^2 + w2^2). Calculation: 100 + 0.1 * (10^2 + 10^2) = 100 + 0.1 * (100 + 100) = 100 + 20 = 120."
+  },
+  {
+    "id": "regu-009",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularization Strength",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "A model has a weight of 5. After one iteration of Ridge update (λ=0.2), the weight becomes 4.8. If the original data was scaled down by a factor of 10, how would the penalty effect change?",
+    "options": [
+      "The penalty would be less effective because the weights are already smaller.",
+      "The penalty would be more effective as it dominates the smaller gradient.",
+      "The penalty remains unchanged as it is independent of input data.",
+      "The weight would increase instead of decrease."
+    ],
+    "correctIndex": 1,
+    "explanation": "When data is scaled down, the gradient of the error term becomes smaller. The penalty term (λ * w) remains constant in its relative influence, making the penalty appear more aggressive in pushing weights toward zero."
+  },
+  {
+    "id": "regu-010",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 Sparsity",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "You have 100 features. You run Lasso (L1) and find that 95 coefficients are zero. If you increase the λ penalty, what happens to the remaining 5 non-zero coefficients?",
+    "options": [
+      "They will shrink further, and some may become zero.",
+      "They will increase to compensate for the lost features.",
+      "They will stay constant because they are the most important.",
+      "They will become negative."
+    ],
+    "correctIndex": 0,
+    "explanation": "Increasing λ increases the total penalty. Since the model is already penalizing all coefficients, further increasing λ will continue to push the remaining non-zero weights toward zero."
+  },
+  {
+    "id": "regu-011",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Cross-Validation",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "You are tuning λ using 5-fold cross-validation. For λ=0.01, the average validation error is 10. For λ=0.1, it is 8. For λ=1.0, it is 12. Which λ should you choose?",
+    "options": [
+      "0.1",
+      "0.01",
+      "1.0",
+      "0.5"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cross-validation is used to find the λ that minimizes the validation error. Since 8 is the lowest error among the tested values, 0.1 is the optimal choice."
+  },
+  {
+    "id": "regu-012",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Ridge Regression Bias",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "If the OLS weight is 2.0 and the Ridge weight with λ=0.5 is 1.5, what happens to the weight if you set λ=0?",
+    "options": [
+      "It returns to 2.0.",
+      "It becomes 0.",
+      "It becomes 1.0.",
+      "It stays at 1.5."
+    ],
+    "correctIndex": 0,
+    "explanation": "Ridge regression with λ=0 is mathematically equivalent to Ordinary Least Squares (OLS). Thus, removing the penalty restores the original, unregularized OLS weight."
+  },
+  {
+    "id": "regu-013",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 vs L2 behavior",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "You have a feature with a very high coefficient. Under L2, this weight is divided by (1 + λ). If the weight is 10 and λ is 1, the new weight is 5. What is the new weight if you use λ=4?",
+    "options": [
+      "2",
+      "2.5",
+      "1.5",
+      "0"
+    ],
+    "correctIndex": 0,
+    "explanation": "The formula for Ridge shrinkage is w_new = w / (1 + λ). 10 / (1 + 4) = 10 / 5 = 2."
+  },
+  {
+    "id": "regu-014",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularization Assumptions",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "A dataset has 10 features, but only 2 are actually relevant. Which method is mathematically more likely to produce a clean coefficient vector of [c1, c2, 0, 0, 0, 0, 0, 0, 0, 0]?",
+    "options": [
+      "Lasso (L1)",
+      "Ridge (L2)",
+      "Ordinary Least Squares",
+      "Elastic Net with high L2"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lasso performs feature selection by forcing irrelevant coefficients to exactly zero. Ridge will shrink them, but rarely makes them exactly zero, leaving small 'noise' coefficients for all 10 features."
+  },
+  {
+    "id": "regu-015",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Penalty Interpretation",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "You calculate the cost of a model as (Error) + λ * |w1| + λ * |w2|. If you have two weights w1=2 and w2=2, and λ=0.5, what is the total penalty term?",
+    "options": [
+      "2",
+      "4",
+      "1",
+      "0.5"
+    ],
+    "correctIndex": 0,
+    "explanation": "The penalty term is λ * (|w1| + |w2|). Calculation: 0.5 * (|2| + |2|) = 0.5 * 4 = 2."
+  },
+  {
+    "id": "regu-016",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Variance Reduction",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "Your model has a variance of 50 and a squared bias of 5. After L2 regularization, the variance drops to 20, but the squared bias increases to 20. Did the total error decrease?",
+    "options": [
+      "Yes, from 55 to 40.",
+      "No, it increased from 55 to 60.",
+      "No, it stayed the same at 55.",
+      "Yes, it dropped to 25."
+    ],
+    "correctIndex": 0,
+    "explanation": "Total error = Bias^2 + Variance. Initial error: 5 + 50 = 55. New error: 20 + 20 = 40. The decrease in variance outweighs the increase in bias, resulting in a lower total error."
+  },
+  {
+    "id": "regu-017",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 Penalty",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "If your model's weights are very large, what does this tell you about the model's complexity in the context of Ridge?",
+    "overflow": "Large weights often indicate the model is trying to fit noise or sharp fluctuations in the training data, implying high complexity/variance.",
+    "options": [
+      "The model is likely overfitting.",
+      "The model has very low variance.",
+      "The regularization λ is too high.",
+      "The model is underfitting."
+    ],
+    "correctIndex": 0,
+    "explanation": "Large weights indicate that the model is sensitive to small changes in inputs (high variance). Ridge regularization reduces this sensitivity by keeping weights small."
+  },
+  {
+    "id": "regu-018",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 Sparsity",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "If you are using L1 regularization and the feature weights are [0.001, 0.002, 0.003], what is the most likely reason they are not zero?",
+    "options": [
+      "The penalty λ is too small.",
+      "The features are perfectly correlated.",
+      "The data was not normalized.",
+      "The model is underfitting."
+    ],
+    "correctIndex": 0,
+    "explanation": "For L1 to force coefficients to zero, the penalty λ must be strong enough to overcome the gradient of the loss function. Very small weights suggest the penalty is currently too weak to push them all the way to zero."
+  },
+  {
+    "id": "regu-019",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Gradient Descent",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "In gradient descent for Ridge, the update rule effectively multiplies the weight by (1 - learning_rate * λ). If the weight is 10, learning_rate is 0.1, and λ is 0.5, what is the weight after one update?",
+    "options": [
+      "9.5",
+      "10.5",
+      "5",
+      "9.95"
+    ],
+    "correctIndex": 0,
+    "explanation": "The update is: w_new = w - (lr * λ * w) = 10 - (0.1 * 0.5 * 10) = 10 - 0.5 = 9.5."
+  },
+  {
+    "id": "regu-020",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularization Logic",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "If you have a feature that is entirely irrelevant (noise), what will L2 regularization do to its coefficient?",
+    "options": [
+      "Shrink it toward zero, but rarely to exactly zero.",
+      "Keep it at the OLS value to maintain model integrity.",
+      "Force it to exactly zero to improve interpretability.",
+      "Increase it to capture more noise."
+    ],
+    "correctIndex": 0,
+    "explanation": "L2 regularization penalizes the square of the weights. While it pushes weights towards zero to reduce complexity, it asymptotically approaches zero, meaning the feature will still have a non-zero coefficient."
+  },
+  {
+    "id": "regu-021",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Geometric Interpretation",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "When comparing L1 and L2, which constraint shape is more likely to hit the coordinate axes?",
+    "options": [
+      "The L1 diamond, because it has sharp vertices on the axes.",
+      "The L2 circle, because it covers more area on the axes.",
+      "Both hit the axes with equal probability.",
+      "Neither hits the axes; they only approach them."
+    ],
+    "correctIndex": 0,
+    "explanation": "The L1 constraint (a diamond) has vertices on the axes. When the error ellipse expands, it hits these vertices first, resulting in coefficients being set exactly to zero."
+  },
+  {
+    "id": "regu-022",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Elastic Net",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "You have 1000 features and only 10 samples. Which regularization is most appropriate?",
+    "options": [
+      "Elastic Net or Lasso, to handle the high-dimensional, low-sample issue.",
+      "Ridge, because it keeps all features.",
+      "No regularization, because the sample size is too small.",
+      "Only L2, because L1 will fail with 10 samples."
+    ],
+    "correctIndex": 0,
+    "explanation": "When p > n (more features than samples), OLS fails. L1 (Lasso) is preferred here to select the few relevant features out of the many, and Elastic Net is often even more stable if features are correlated."
+  },
+  {
+    "id": "regu-023",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularization Impact",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "A model has an R-squared of 0.99 on training data and 0.50 on test data. After adding L2, the training R-squared drops to 0.85 and test R-squared rises to 0.75. What does this indicate?",
+    "options": [
+      "The model was overfitting, and L2 improved generalization.",
+      "The model was underfitting, and L2 made it worse.",
+      "The model has reached its optimal complexity.",
+      "The regularization was unnecessary."
+    ],
+    "correctIndex": 0,
+    "explanation": "The large gap between train and test scores (0.99 vs 0.50) is the definition of overfitting. By sacrificing some training performance (0.99 to 0.85) to close that gap, the model generalizes better to unseen data (0.75)."
+  },
+  {
+    "id": "regu-024",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Bias-Variance Tradeoff",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "In the context of regularization, what is the 'sweet spot' for λ?",
+    "options": [
+      "The value where validation error is minimized.",
+      "The value where the training error is zero.",
+      "The value where the weights are largest.",
+      "The value where the bias is zero."
+    ],
+    "correctIndex": 0,
+    "explanation": "The goal of regularization is to minimize total error, which is the sum of bias squared and variance. Validation error is the empirical proxy for this sum, so minimizing it finds the balance between underfitting and overfitting."
+  },
+  {
+    "id": "regu-025",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 Property",
+    "difficulty": "advanced",
+    "style": "calculation",
+    "playlist": "machine-learning",
+    "question": "If you multiply all your input features by a factor of 10, what must happen to your L2 λ parameter to maintain the same level of regularization effect?",
+    "options": [
+      "It must be increased by a factor of 100.",
+      "It must be decreased by a factor of 100.",
+      "It stays the same.",
+      "It must be multiplied by 10."
+    ],
+    "correctIndex": 0,
+    "explanation": "Since the penalty is based on squared weights, and scaling inputs by 10 makes the weights 10 times smaller to maintain the same output, the squared weights become 100 times smaller. To keep the penalty force equal, λ must increase by 100."
+  },
+  {
+    "id": "regu-001",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 vs L2 geometry",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are training a model on a dataset where features are highly correlated (multicollinearity). You notice that L1 regularisation (Lasso) is inconsistently dropping one of the two correlated features in different runs. What is the most likely behavior occurring?",
+    "options": [
+      "L1 is picking one feature arbitrarily because the diamond-shaped constraint hits a corner where only one axis is non-zero",
+      "L2 regularisation is required here because it would force both coefficients to zero simultaneously",
+      "The model is suffering from vanishing gradients, necessitating a switch to Elastic Net",
+      "The data requires feature scaling because L1 is failing to distinguish the relative importance of the correlated pair"
+    ],
+    "correctIndex": 0,
+    "explanation": "L1's diamond-shaped constraint has sharp corners on the axes. When two features are perfectly correlated, the loss function's elliptical contours touch an edge or corner, causing L1 to pick one and set the other to zero. The tempting wrong answer about L2 is incorrect because L2 spreads coefficients out rather than forcing them to zero."
+  },
+  {
+    "id": "regu-002",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Hyperparameter tuning",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You have a model where the validation loss is significantly higher than the training loss, but your L2 penalty (lambda) is already quite large. What is the next logical step to improve generalization?",
+    "options": [
+      "Increase the penalty term further to continue pushing weights toward zero",
+      "Reduce the number of features or simplify the model structure, as the current model capacity may be too high for the noise",
+      "Switch to L1 regularization to perform feature selection, as L2 is clearly not effective at reducing complexity",
+      "Decrease the lambda value to allow the model to fit the underlying patterns better"
+    ],
+    "correctIndex": 1,
+    "explanation": "If high validation loss persists despite a large penalty, the model's 'base' complexity or the noise in the data may be too much for regularisation alone. Increasing the penalty further will eventually cause underfitting. The tempting wrong answer about decreasing lambda ignores the bias-variance tradeoff."
+  },
+  {
+    "id": "regu-003",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Bias-Variance Tradeoff",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are building a predictive model for rare diseases where the feature space is vast (10,000 genes) but you only have 50 patient samples. Which regularisation approach is most appropriate to ensure the model doesn't 'memorize' the few samples?",
+    "options": [
+      "L2 regularisation, because it prevents any single gene from dominating the prediction",
+      "L1 regularisation, because we expect most genes to be irrelevant and we want a sparse model",
+      "No regularisation, as the small sample size requires the model to use all available signal",
+      "Increasing the model's depth to ensure the complex relationships are captured"
+    ],
+    "correctIndex": 1,
+    "explanation": "In a p >> n scenario (more features than samples), L1 is superior because it performs feature selection by setting coefficients to zero, effectively identifying the few relevant genes. L2 is tempting but would leave all 10,000 genes with small weights, likely leading to overfitting on noise."
+  },
+  {
+    "id": "regu-004",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Feature scaling",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You realize your model performs poorly after applying L2 regularisation. You discover that one feature is measured in millimeters and another in kilometers. Why is L2 failing here?",
+    "options": [
+      "L2 regularisation is only effective for classification tasks, not regression",
+      "The penalty is applied to the magnitude of coefficients; if features aren't scaled, the model will penalize larger-scale features more heavily regardless of their importance",
+      "L2 only works if the features follow a Gaussian distribution",
+      "The penalty term requires L1 for features with vastly different units"
+    ],
+    "correctIndex": 1,
+    "explanation": "L2 penalizes the squared magnitude of coefficients. If features are on different scales, the coefficient for the 'millimeter' feature will be numerically much larger than the 'kilometer' feature, leading the penalty to incorrectly suppress it. The tempting wrong answer about Gaussian distribution is a common misconception."
+  },
+  {
+    "id": "regu-005",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Elastic Net intuition",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You have a dataset with strong grouping effects where features are correlated in clusters. You want a sparse model but also want to keep all features in a cluster if one is deemed important. What is the best strategy?",
+    "options": [
+      "Use pure L1 (Lasso) to force sparsity and ignore the grouping",
+      "Use pure L2 (Ridge) to ensure all features in a group remain in the model",
+      "Use Elastic Net, which combines L1 for sparsity and L2 to group correlated features",
+      "Use a simple linear regression and perform manual feature selection"
+    ],
+    "correctIndex": 2,
+    "explanation": "Elastic Net is specifically designed to handle the 'grouping' limitation of Lasso by adding an L2 penalty, which encourages correlated features to have similar coefficients. L1 is tempting but ignores the grouping, while L2 fails to provide the desired sparsity."
+  },
+  {
+    "id": "regu-006",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Coefficient behavior",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "While observing your model training, you notice that as you increase the L2 penalty, the coefficients shrink toward zero but never actually reach zero. What does this imply about the model's interpretation?",
+    "options": [
+      "The model is failing to converge and needs more iterations",
+      "The model will never be sparse, meaning all features remain part of the final prediction",
+      "The model is over-regularized and the coefficients are now biased toward one",
+      "The penalty is too small to influence the weight distribution"
+    ],
+    "correctIndex": 1,
+    "explanation": "Because the L2 penalty is a circle (or hypersphere) in parameter space, it never touches the axes exactly at zero unless the weight is zeroed out by the loss function itself. L2 maintains all features. The tempting wrong answer about convergence is a technical confusion between optimization and regularization."
+  },
+  {
+    "id": "regu-007",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Overfitting vs Underfitting",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You notice your model's training error is very low, but your test error is high. You apply L2 regularisation, but the test error remains high. What is the most likely reason?",
+    "options": [
+      "L2 regularisation is not strong enough; you should switch to L1",
+      "The penalty strength (lambda) is likely too low to constrain the high variance",
+      "The model is underfitting, so you should increase the penalty further",
+      "The model is perfectly regularized; the error is due to bad data collection"
+    ],
+    "correctIndex": 1,
+    "explanation": "If the model is still overfitted (high test error), the regularization is likely insufficient to counteract the complexity of the data. Increasing lambda is the logical next step. The tempting wrong answer about switching to L1 assumes L1 will automatically fix overfitting, which is not guaranteed."
+  },
+  {
+    "id": "regu-008",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpretation",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are presenting a model to stakeholders. You chose L1 regularisation. What is the main 'business value' argument you should make for this choice?",
+    "options": [
+      "The model is more accurate because L1 handles non-linearities better than L2",
+      "The model is easier to interpret because it automatically selects a subset of the most important features",
+      "The model is more robust because L1 prevents coefficients from becoming too large",
+      "The model is faster to train because it ignores 50% of the data"
+    ],
+    "correctIndex": 1,
+    "explanation": "L1 provides interpretability by setting irrelevant coefficients to zero, leaving a 'sparse' model that identifies the key drivers of the outcome. The tempting wrong answer about accuracy is false because L2 often yields higher accuracy if all features have some signal."
+  },
+  {
+    "id": "regu-009",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Hyperparameter optimization",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are using cross-validation to find the best lambda for L2 regularisation. You find that the validation error is minimized at lambda=0.1. What does this tell you about your initial model?",
+    "options": [
+      "The initial model had no overfitting issues",
+      "The model was likely overfitting, and lambda=0.1 provides the right balance of bias and variance",
+      "The model was underfitting, and we need to reduce the model complexity even further",
+      "The cross-validation failed because lambda should always be 0 for the best fit"
+    ],
+    "correctIndex": 1,
+    "explanation": "The point where cross-validation error is minimized is the sweet spot where the bias-variance tradeoff is balanced. If the optimal lambda is greater than zero, the unregularized model was overfitting. The tempting wrong answer about lambda=0 is incorrect because unregularized models usually overfit."
+  },
+  {
+    "id": "regu-010",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Optimization",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "During training, your gradient descent algorithm is oscillating wildly when using L1 regularisation. What is the most likely cause?",
+    "options": [
+      "The L1 penalty is non-differentiable at zero, creating sharp 'kinks' in the loss surface",
+      "The learning rate is too low to handle the complexity of L1",
+      "The data contains outliers that L1 is struggling to ignore",
+      "L2 regularisation should have been used to smooth the surface"
+    ],
+    "correctIndex": 0,
+    "explanation": "L1 involves the absolute value, which has a sharp point at zero. This makes the gradient undefined at that point, which can cause oscillation. L2 is smooth and easier to optimize. The tempting wrong answer about learning rate is a secondary issue compared to the geometry of the loss function."
+  },
+  {
+    "id": "regu-011",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 intuition",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "Your team is concerned that the model is relying too heavily on one specific feature that is often noisy in real-world deployment. Which regularisation technique would best mitigate this risk?",
+    "options": [
+      "L1, because it will set the weight of that noisy feature to zero",
+      "L2, because it will force the weight of that feature to be smaller, spreading the influence across other features",
+      "Adding more data, as regularisation cannot handle noisy features",
+      "Using a tree-based model instead of a linear model"
+    ],
+    "correctIndex": 1,
+    "explanation": "L2 discourages any single weight from becoming too large, which helps reduce the impact of a noisy feature without necessarily removing it. L1 is tempting, but if that feature still has *some* predictive power, L1 might keep it, whereas L2 will just dampen its effect."
+  },
+  {
+    "id": "regu-012",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Comparison",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You have 50 features and you know for a fact that only 5 of them are actually related to the target variable. Which penalty is theoretically the most appropriate?",
+    "options": [
+      "L2, because it treats all features equally",
+      "L1, because it excels at setting the weights of irrelevant features to exactly zero",
+      "Elastic Net, because the features are known to be independent",
+      "L2 with a very high penalty term"
+    ],
+    "correctIndex": 1,
+    "explanation": "L1 is the standard tool for sparse models where many features are irrelevant. L2 is tempting, but it would leave all 50 features with non-zero weights, which is less ideal for identifying the true 5 features. The tempting wrong answer about Elastic Net is less efficient than L1 here."
+  },
+  {
+    "id": "regu-013",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Scale sensitivity",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are training a model where features have different units (e.g., age in years, income in dollars). Why is it critical to normalize your features before applying L2?",
+    "options": [
+      "Normalization prevents the gradient from exploding",
+      "L2 penalizes the magnitude of the weight; if features are not on the same scale, the penalty will be applied inconsistently",
+      "Normalization is required by the L2 math to ensure the loss function is convex",
+      "L2 regularisation will only converge if features are mean-centered"
+    ],
+    "correctIndex": 1,
+    "explanation": "If a feature has small values (e.g., 0-1), its coefficient will be large; if it has large values (e.g., 1000-5000), its coefficient will be small. L2 penalizes the coefficient value directly, so it will unfairly penalize the feature with the 'large' coefficient. The tempting wrong answer about convexity is incorrect."
+  },
+  {
+    "id": "regu-014",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Validation",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are tuning the 'lambda' hyperparameter. You observe that as you increase lambda, the training error increases while the test error decreases. What is happening?",
+    "options": [
+      "The model is underfitting",
+      "The model is successfully reducing variance and improving generalisation",
+      "The model is suffering from data leakage",
+      "The learning rate is too high"
+    ],
+    "correctIndex": 1,
+    "explanation": "This is the classic behavior of increasing regularisation: it increases training bias (higher training error) but improves generalisation (lower test error) by reducing variance. The tempting wrong answer about underfitting is incorrect because the test error is improving."
+  },
+  {
+    "id": "regu-015",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Geometry",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "Why does the L2 constraint surface (a circle) make it difficult to get exact zero coefficients compared to the L1 constraint surface (a diamond)?",
+    "options": [
+      "The circle is not large enough to touch the origin",
+      "The circle has a smooth curvature, making it very unlikely to touch the axis exactly at zero",
+      "The diamond requires more computational power to calculate",
+      "The circle is only used for high-dimensional data"
+    ],
+    "correctIndex": 1,
+    "explanation": "The L1 diamond has sharp corners at the axes; the L2 circle is smooth. For the optimal point to lie on an axis (a zero coefficient), the loss function contours must hit the constraint boundary exactly at that intersection. This is statistically improbable for a smooth curve. The tempting wrong answer about computation is irrelevant."
+  },
+  {
+    "id": "regu-016",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Model selection",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are comparing two models. Model A uses L1 and has 10 non-zero features. Model B uses L2 and has 50 non-zero features. Both have similar test performance. Which should you choose for a deployment where latency is a concern?",
+    "options": [
+      "Model B, because L2 is more robust to future outliers",
+      "Model A, because it requires fewer features to calculate the output, reducing computation time",
+      "Model B, because it is more complex and thus more likely to adapt to new data",
+      "Neither, as both should have been trained with Elastic Net"
+    ],
+    "correctIndex": 1,
+    "explanation": "In production, calculating a prediction involves multiplying the input by the weights. A sparse model (Model A) with 10 features requires fewer multiplications than a dense model (Model B) with 50 features. The tempting wrong answer about robustness is not relevant to latency."
+  },
+  {
+    "id": "regu-017",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Bias-Variance Tradeoff",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "If you apply an extremely large penalty to your model, your training error and test error become almost identical and very high. What is your model doing?",
+    "options": [
+      "The model has achieved the perfect bias-variance tradeoff",
+      "The model has become too simple, effectively ignoring the data and predicting the mean (underfitting)",
+      "The model has converged to the global optimum",
+      "The model is now robust to any future input noise"
+    ],
+    "correctIndex": 1,
+    "explanation": "An extremely large penalty forces all weights toward zero, making the model overly simple (high bias). It loses the ability to learn any patterns, hence high error on both sets. The tempting wrong answer about the 'perfect tradeoff' is incorrect because the errors are high."
+  },
+  {
+    "id": "regu-018",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 vs Variance",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You suspect your model is 'chasing' noise in the training set. How does adding an L2 penalty specifically counteract this chasing behavior?",
+    "options": [
+      "It makes the loss function non-convex",
+      "It penalizes large weights, effectively 'damping' the model's response to small, erratic changes in the input data",
+      "It increases the number of iterations required to reach the minimum",
+      "It automatically scales the features to be between 0 and 1"
+    ],
+    "correctIndex": 1,
+    "explanation": "Large weights often indicate that the model is trying to fit noise (overfitting). L2 penalizes these large weights, forcing the model to find a smoother, more generalized solution. The tempting wrong answer about non-convexity is mathematically incorrect."
+  },
+  {
+    "id": "regu-019",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Lasso and Multicollinearity",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You have two identical features in your dataset. L1 regularisation is giving you unstable results across different cross-validation folds. Why?",
+    "options": [
+      "L1 is trying to set one to zero, but because they are identical, it picks one randomly based on tiny noise differences in the fold",
+      "The features are too similar, causing the L1 penalty to explode",
+      "The learning rate is too high for the features",
+      "L1 is incapable of handling identical features, whereas L2 is not"
+    ],
+    "correctIndex": 0,
+    "explanation": "L1 doesn't have a preference for which feature to keep when they are correlated or identical; it picks one randomly. This leads to high variance in the model's coefficients across folds. The tempting wrong answer about L1 being 'incapable' is too strong; it just handles it by picking one."
+  },
+  {
+    "id": "regu-020",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Generalization",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You have a dataset where you suspect that most features are just noise, but you have no prior knowledge of which ones. Which regularisation path should you take?",
+    "options": [
+      "Start with a high L2 penalty and decrease it",
+      "Start with a high L1 penalty to force sparsity, then tune down to find the optimal number of active features",
+      "Start with a high L1 penalty and increase it until the model is empty",
+      "Use L2 exclusively as it is more stable"
+    ],
+    "correctIndex": 1,
+    "explanation": "Starting with high L1 forces a sparse model, and as you decrease the penalty, you can observe which features are 'added back' into the model, helping you select the most relevant ones. The tempting wrong answer about L2 is less effective for identifying signal vs noise."
+  },
+  {
+    "id": "regu-021",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpretation",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "After training with L2, you notice that all your feature coefficients are very small, but none are zero. What does this indicate?",
+    "options": [
+      "The model is likely underfitting",
+      "The model has successfully distributed the importance across all features to minimize the penalty while keeping the loss low",
+      "The regularisation penalty was too low",
+      "The model failed to perform feature selection"
+    ],
+    "correctIndex": 1,
+    "explanation": "This is the intended behavior of L2: it keeps all features but shrinks their influence. It is not 'failing' at feature selection; it is performing weight decay. The tempting wrong answer about failing at feature selection assumes that feature selection was the goal."
+  },
+  {
+    "id": "regu-022",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Hyperparameter tuning",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You are using a 'Grid Search' to find the best lambda for L1. You notice that for very high values of lambda, the model becomes 'empty' (all coefficients are zero). What does this represent?",
+    "options": [
+      "A failure of the optimizer",
+      "The upper limit of the model's capacity where it becomes too simple to predict anything",
+      "The optimal point for predictive accuracy",
+      "The point where the model has finally achieved convergence"
+    ],
+    "correctIndex": 1,
+    "explanation": "When lambda is very high, the penalty dominates the loss function, and the only way to minimize the total cost is to push all weights to zero. This is the ultimate 'underfit' state. The tempting wrong answer about 'optimal accuracy' is incorrect."
+  },
+  {
+    "id": "regu-023",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpretation",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "A colleague argues that L2 regularisation 'prevents the model from ever learning a complex pattern.' How would you respond based on the bias-variance tradeoff?",
+    "options": [
+      "Agree, as L2 forces weights to be small, limiting the model's complexity",
+      "Disagree, as L2 simply penalizes excessive complexity, allowing the model to learn the most important, stable patterns without overfitting",
+      "Agree, and suggest they switch to L1",
+      "Disagree, because L2 actually increases the model's ability to learn complex non-linearities"
+    ],
+    "correctIndex": 1,
+    "explanation": "L2 doesn't stop the model from learning patterns; it stops it from learning *overly specific/noisy* patterns. It controls the complexity so the model learns the generalized signal. The tempting wrong answer about agreeing with the colleague misses the nuance of regularization."
+  },
+  {
+    "id": "regu-024",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Scenario",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "You have a large number of features, and you notice your model is highly sensitive to small changes in your training data (high variance). Which regularisation technique should you prioritize first?",
+    "options": [
+      "Any penalty, as both L1 and L2 are effective at reducing variance",
+      "L1, because it will eliminate the noisy features causing the variance",
+      "L2, because it is generally more stable than L1 and effectively shrinks the weights of all features",
+      "No regularisation, as variance should be handled by increasing the amount of data"
+    ],
+    "correctIndex": 2,
+    "explanation": "L2 is typically the first choice for reducing variance because it is smoother and less prone to the instabilities (like switching features) that L1 can exhibit when data changes slightly. The tempting wrong answer about L1 is plausible, but L2 is generally the 'safer' first step."
+  },
+  {
+    "id": "regu-025",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Advanced nuance",
+    "difficulty": "advanced",
+    "style": "scenario",
+    "playlist": "machine-learning",
+    "question": "Why might you choose to use both L1 and L2 (Elastic Net) even when you have enough computing power to use them separately?",
+    "options": [
+      "To combine the feature selection benefits of L1 with the stability and grouping effects of L2",
+      "To double the penalty and reduce the training time",
+      "Because L1 and L2 are mathematically identical in high dimensions",
+      "To ensure that all coefficients are forced to zero"
+    ],
+    "correctIndex": 0,
+    "explanation": "Elastic Net allows the best of both worlds: sparsity (L1) and stability for correlated features (L2). This is a professional-grade strategy for complex datasets. The tempting wrong answer about doubling the penalty is a misunderstanding of how the terms are added."
+  },
+  {
+    "id": "regu-001",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 Sparsity",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A common misconception is that L1 regularization (Lasso) performs feature selection by setting coefficients to exactly zero because the L1 penalty is 'stronger' than the L2 penalty. Why is this technically incorrect?",
+    "options": [
+      "Lasso actually shrinks coefficients toward zero but never reaches zero unless the penalty is infinite.",
+      "The geometry of the L1 diamond (the absolute value constraint) creates 'corners' on the axes, which makes it geometrically probable for the optimization path to hit zero, not because it is stronger.",
+      "Lasso only sets coefficients to zero if the features are perfectly collinear, otherwise it behaves like Ridge.",
+      "L2 also sets coefficients to zero, but Lasso does it faster during the first iteration."
+    ],
+    "correctIndex": 1,
+    "explanation": "The L1 penalty diamond has sharp corners on the axes. When the loss function's contours expand, they are likely to intersect the diamond at these corners, forcing coefficients to zero. It is a geometric property of the constraint shape, not a matter of 'strength'."
+  },
+  {
+    "id": "regu-002",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 Shrinkage",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A colleague argues that L2 regularization (Ridge) is useless for feature selection because it doesn't set coefficients to zero. Why is this view misleading?",
+    "options": [
+      "Ridge actually sets coefficients to zero if you use a high enough lambda.",
+      "Ridge reduces the variance of the model, which can make previously 'important' features appear statistically insignificant, effectively performing soft feature selection.",
+      "Ridge is actually a form of feature selection because it removes the intercept term.",
+      "Ridge provides a 'weight decay' that effectively eliminates features by making their contribution to the prediction output negligible."
+    ],
+    "correctIndex": 3,
+    "explanation": "While Ridge doesn't set coefficients to absolute zero, the shrinkage effect can make coefficients so small that their impact on the prediction is effectively null, serving a functional purpose of feature de-emphasis."
+  },
+  {
+    "id": "regu-003",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Lambda Tuning",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "If your model is overfitting, a common trap is to assume that increasing the regularization parameter (lambda) will always improve test set performance. What is the misconception here?",
+    "options": [
+      "Increasing lambda always increases bias, and at some point, the increase in bias outweighs the decrease in variance, leading to worse test performance.",
+      "Increasing lambda only works if the features are normalized; otherwise, it has no effect.",
+      "Regularization parameters should never be tuned using cross-validation as it leads to data leakage.",
+      "High lambda values make the model too complex, which inherently leads to overfitting."
+    ],
+    "correctIndex": 0,
+    "explanation": "This is the bias-variance tradeoff. Regularization reduces variance but increases bias. If you increase lambda too far, you 'over-regularize', causing the model to underfit, which degrades performance."
+  },
+  {
+    "id": "regu-004",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Scaling",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A data scientist suggests that regularization can be applied to raw, unscaled data to handle outliers. Why is this a fundamental misunderstanding?",
+    "options": [
+      "Regularization is designed for categorical data, not continuous data.",
+      "Regularization treats all coefficients equally; if features are on different scales, the penalty will unfairly penalize features with smaller magnitudes.",
+      "The L2 penalty is only effective when the target variable is also scaled.",
+      "Outliers are handled by the loss function, not the penalty term, so regularization cannot fix data quality issues."
+    ],
+    "correctIndex": 1,
+    "explanation": "Regularization penalizes the size of coefficients. If one feature is measured in millimeters and another in kilometers, the coefficient for the former will be much larger, causing the penalty to disproportionately shrink it, regardless of its true predictive power."
+  },
+  {
+    "id": "regu-005",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Elastic Net",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "It is often thought that Elastic Net is 'better' than Lasso or Ridge. Why is this a misconception regarding the 'no free lunch' theorem?",
+    "options": [
+      "Elastic Net requires significantly more computational power than training a neural network.",
+      "Elastic Net is only better if you have fewer features than samples, which is rare.",
+      "Elastic Net is a compromise; it does not inherently perform better, it just provides a middle ground that may be more stable when dealing with correlated features.",
+      "Elastic Net is actually just a re-branded version of L2 regularization."
+    ],
+    "correctIndex": 2,
+    "explanation": "Elastic Net combines L1 and L2 to handle the 'grouping effect' of correlated features. It is a tool for a specific problem (multicollinearity), not a universally superior model."
+  },
+  {
+    "id": "regu-006",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Geometry",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Many believe the L2 penalty circle 'touches' the loss function at the axes, causing zero coefficients. Why is this visually incorrect?",
+    "options": [
+      "The L2 circle only touches at the axes if the features are independent.",
+      "The L2 circle is smooth and round; it is mathematically unlikely for the loss function to reach the minimum exactly on the axes unless the feature has zero correlation with the target.",
+      "The L2 circle is actually an ellipse, not a circle, so it never touches the axes.",
+      "L2 actually touches the axes frequently, but the values are so small they appear as zero in computer memory."
+    ],
+    "correctIndex": 1,
+    "explanation": "Because the L2 constraint is circular (or hyperspherical), it lacks the 'corners' of the L1 diamond. It touches the loss function contours at arbitrary points, rarely landing exactly on the axes."
+  },
+  {
+    "id": "regu-007",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Overfitting",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A student claims that regularization 'fixes' overfitting by making the model simpler. What is the subtle error in this perspective?",
+    "options": [
+      "Regularization doesn't make the model simpler; it makes the training process slower.",
+      "Regularization does not fix overfitting; it only hides it by suppressing noisy features.",
+      "Regularization restricts the 'search space' of possible coefficients, preventing the model from chasing noise in the training data, but it doesn't change the underlying complexity of the model architecture.",
+      "Regularization only works if the model was already too simple to begin with."
+    ],
+    "correctIndex": 2,
+    "explanation": "Regularization doesn't change the number of parameters or the function type; it constrains the optimization, effectively limiting how much the model can 'wiggle' to fit training noise."
+  },
+  {
+    "id": "regu-008",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpretation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "It is a common misconception that if you use L1 regularization, the features that remain (non-zero) are the 'most important' ones. Why is this dangerous?",
+    "options": [
+      "Lasso ignores the statistical significance of features; it only cares about the penalty, so it might drop a highly predictive feature in favor of a correlated one.",
+      "L1 regularization will always keep the most important features.",
+      "If you use L1, you must use L2 as well to ensure the remaining features are important.",
+      "L1 regularization makes all remaining features equally important."
+    ],
+    "correctIndex": 0,
+    "explanation": "Lasso is notorious for arbitrarily picking one feature from a group of highly correlated variables and dropping the others, even if the dropped ones are meaningful. It prioritizes sparsity over variable selection truth."
+  },
+  {
+    "id": "regu-009",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Bias-Variance",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A developer claims that L2 regularization increases bias but has 'no effect' on variance. What is wrong here?",
+    "options": [
+      "L2 decreases both bias and variance simultaneously.",
+      "L2 actually increases variance because it forces the model to ignore data.",
+      "L2 is specifically intended to decrease variance by preventing coefficients from becoming extreme, which is the definition of high variance.",
+      "L2 has no effect on bias; it only affects the intercept."
+    ],
+    "correctIndex": 2,
+    "explanation": "The primary goal of L2 is to reduce variance. By penalizing large weights, the model becomes less sensitive to small fluctuations (noise) in the training data, which reduces the model's variance."
+  },
+  {
+    "id": "regu-010",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Why is the idea that 'regularization makes a model faster to train' generally a misconception?",
+    "options": [
+      "Regularization adds an extra term to the loss function, requiring more computational steps per iteration to optimize.",
+      "Regularization requires the model to train on the entire dataset multiple times.",
+      "Regularization forces the model to ignore features, which makes the training set smaller.",
+      "Regularization is only possible with batch gradient descent, which is the slowest method."
+    ],
+    "correctIndex": 0,
+    "explanation": "Adding a penalty term complicates the loss landscape. While it might lead to a more stable solution, it generally requires more effort during optimization compared to an unregularized model."
+  },
+  {
+    "id": "regu-011",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Multicollinearity",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A data scientist says Ridge is the 'cure' for multicollinearity. Why is this an overstatement?",
+    "options": [
+      "Ridge does not remove multicollinearity; it just makes the coefficients stable in its presence.",
+      "Ridge makes multicollinearity worse by inflating the variance of correlated features.",
+      "Ridge can only handle multicollinearity if the data is non-linear.",
+      "Ridge turns multicollinearity into a single feature, which is not always desirable."
+    ],
+    "correctIndex": 0,
+    "explanation": "Ridge regression handles the instability caused by multicollinearity by shrinking coefficients, but the underlying correlation between features remains in the data."
+  },
+  {
+    "id": "regu-012",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Loss Function",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Some believe that adding a penalty term to the loss function changes the 'best' possible solution (the ground truth). Why is this view misleading?",
+    "options": [
+      "The 'best' solution is subjective, so the penalty is just a tool to find a more useful one.",
+      "The penalty actually helps the model reach the true global minimum faster.",
+      "Regularization is an inductive bias; we are intentionally accepting a biased estimate of the parameters to improve overall predictive performance on unseen data.",
+      "The penalty has no effect on the minimum; it only changes the path taken."
+    ],
+    "correctIndex": 2,
+    "explanation": "We aren't trying to find the 'true' parameters of the universe; we are trying to find the most useful ones for generalization. Regularization intentionally biases the model away from the training-set optimum to prevent over-fitting."
+  },
+  {
+    "id": "regu-013",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 vs L2",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A team chooses L1 over L2 because they heard L1 is 'more accurate'. Why is this a misconception?",
+    "options": [
+      "Accuracy depends on the data distribution, not the penalty type. L1 is better for sparsity, L2 is better for stable coefficient estimation.",
+      "L1 is always more accurate because it removes noise.",
+      "L2 is mathematically proven to be more accurate than L1.",
+      "L1 is only accurate if you have more than 1000 features."
+    ],
+    "correctIndex": 0,
+    "explanation": "Neither is inherently more accurate. L1 is a tool for sparsity/interpretation, while L2 is a tool for stability. Accuracy is a result of how well the chosen tool matches the actual relationship between features and the target."
+  },
+  {
+    "id": "regu-014",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A colleague argues that L2 is better because it's 'differentiable everywhere', unlike L1. Why is this often a moot point in practice?",
+    "options": [
+      "Modern solvers use sub-gradient descent or coordinate descent to handle the non-differentiable point at zero in L1.",
+      "L1 is actually differentiable everywhere.",
+      "L2 is actually not differentiable because of the square root.",
+      "It doesn't matter because computers represent all numbers as discrete values."
+    ],
+    "correctIndex": 0,
+    "explanation": "While L1 is not differentiable at zero, we have robust numerical optimization algorithms specifically designed to handle this, so it doesn't prevent us from using L1 effectively."
+  },
+  {
+    "id": "regu-015",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Why is the belief that 'regularization is only needed for small datasets' inaccurate?",
+    "options": [
+      "Regularization is only needed when the number of features is larger than the number of samples.",
+      "Regularization is only needed for high-dimensional data, regardless of sample size.",
+      "Even with large datasets, a model can overfit if the feature space is very high-dimensional or if the features contain significant noise.",
+      "Regularization is only needed for deep learning models."
+    ],
+    "correctIndex": 2,
+    "explanation": "Large datasets do not guarantee immunity to overfitting. If your model has high capacity (e.g., many features or deep layers), it can still memorize noise even with a large number of samples."
+  },
+  {
+    "id": "regu-016",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 Shrinkage",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A student thinks that L2 regularization shrinks all coefficients by the same absolute amount. Why is this wrong?",
+    "options": [
+      "L2 shrinks coefficients by a percentage, so larger coefficients are penalized more than smaller ones.",
+      "L2 shrinks coefficients based on their rank, not their value.",
+      "L2 penalizes the square of the coefficients, meaning larger coefficients are penalized much more aggressively than smaller ones.",
+      "L2 only shrinks coefficients that are negative."
+    ],
+    "correctIndex": 2,
+    "explanation": "Because the penalty is the *square* of the coefficients, the gradient of the penalty is proportional to the coefficient value. Larger coefficients receive a larger penalty push towards zero."
+  },
+  {
+    "id": "regu-017",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpretation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A developer claims that if lambda is set to zero, the model will behave exactly like an OLS model. While true, why is this a risky assumption?",
+    "options": [
+      "The model will always crash if lambda is zero.",
+      "Numerical instability can occur in OLS if features are correlated, and even a tiny bit of regularization can significantly improve stability.",
+      "OLS is only a subset of regularization; they are fundamentally different algorithms.",
+      "Lambda cannot be zero in most software implementations."
+    ],
+    "correctIndex": 1,
+    "explanation": "While theoretically lambda=0 is OLS, in practice, OLS can fail or produce wild, unstable coefficients when multicollinearity exists. Even a tiny Ridge penalty acts as a safeguard for numerical stability."
+  },
+  {
+    "id": "regu-018",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Feature Importance",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Some argue that removing features via Lasso is a form of 'feature engineering'. Why is this a misconception?",
+    "options": [
+      "Feature engineering involves creating new features; removing them is 'feature selection'.",
+      "Lasso is an automated process, whereas feature engineering requires domain knowledge.",
+      "Removing features is technically data cleaning.",
+      "Lasso only works for continuous targets, not categorical ones."
+    ],
+    "correctIndex": 0,
+    "explanation": "Feature engineering is the process of using domain knowledge to create or transform features. Feature selection is the process of choosing a subset of relevant features. Lasso automates the latter, it does not engineer the former."
+  },
+  {
+    "id": "regu-019",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 vs L2",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A user says 'L1 is for feature selection, L2 is for prediction'. What is the nuance they are missing?",
+    "options": [
+      "L2 can be used for feature selection, and L1 can be used for prediction.",
+      "L1 is exclusively for classification.",
+      "L2 is only for regression, not classification.",
+      "L1 cannot be used for prediction at all."
+    ],
+    "correctIndex": 0,
+    "explanation": "While L1's sparsity makes it a *popular* choice for feature selection, it works perfectly fine for prediction. Similarly, L2 is often used to prevent overfitting in models where prediction accuracy is the only goal, but it can also be used as a pre-cursor to selection."
+  },
+  {
+    "id": "regu-020",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Why is the idea that 'regularization makes a model more robust to outliers' a common misconception?",
+    "options": [
+      "Regularization makes models more sensitive to outliers because it forces a simplified fit.",
+      "Regularization is about variance, not robustness to outliers; robust loss functions (like Huber) are for outliers.",
+      "Regularization only works if there are no outliers in the dataset.",
+      "Outliers are actually preferred by L2 regularization."
+    ],
+    "correctIndex": 1,
+    "explanation": "Regularization helps with model complexity and variance, but it does not intrinsically handle outliers. If your loss function is squared error, the outliers will still exert massive 'pull' on the model, even with regularization."
+  },
+  {
+    "id": "regu-021",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A student believes that if two features are identical, L1 will keep both. Why is this wrong?",
+    "options": [
+      "L1 will always drop both features.",
+      "L1 is unstable with identical features and will arbitrarily pick one to keep and set the other to zero.",
+      "L1 will average the coefficients of the two features.",
+      "L1 will keep both but shrink them by half."
+    ],
+    "correctIndex": 1,
+    "explanation": "Lasso's objective function is indifferent to which of two identical features it uses. It will often pick one randomly and set the other to zero, which is a known instability of L1 when multicollinearity is perfect."
+  },
+  {
+    "id": "regu-022",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Some suggest that you should apply L2 regularization to the bias (intercept) term. Why is this generally discouraged?",
+    "options": [
+      "The intercept term does not contribute to the complexity or 'wiggliness' of the model; penalizing it would just shift the prediction mean, not improve generalization.",
+      "The intercept is already regularized by default.",
+      "Penalizing the intercept makes the model fail to converge.",
+      "The intercept is not a coefficient."
+    ],
+    "correctIndex": 0,
+    "explanation": "The intercept just shifts the model up or down. It does not allow the model to 'overfit' to noise in the training data, so regularizing it serves no purpose in the bias-variance tradeoff."
+  },
+  {
+    "id": "regu-023",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Elastic Net",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A common misconception is that Elastic Net is just a 'weighted average' of Lasso and Ridge. How does this simplify the reality too much?",
+    "options": [
+      "Elastic Net is actually just Lasso with a different penalty shape.",
+      "Elastic Net uses a convex combination of the L1 and L2 penalties, and the interaction between the two allows for both sparsity and stability in a way neither can do alone.",
+      "Elastic Net is a completely separate algorithm with its own loss function unrelated to L1 or L2.",
+      "Elastic Net is a neural network technique, not a regression technique."
+    ],
+    "correctIndex": 1,
+    "explanation": "Elastic Net is indeed a combination of L1 and L2, but it's not just a 'weighted average'. The synergy allows it to select groups of correlated variables (like Ridge's stability) while still being able to set coefficients to zero (like Lasso's sparsity)."
+  },
+  {
+    "id": "regu-024",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "Why is the idea that 'regularization is a substitute for more data' problematic?",
+    "options": [
+      "Regularization is better than more data.",
+      "Regularization is an approximation; nothing beats having more high-quality, representative data to define the relationship between inputs and outputs.",
+      "Regularization is only for datasets with under 100 observations.",
+      "Regularization is unrelated to data quantity."
+    ],
+    "correctIndex": 1,
+    "explanation": "Regularization helps a model perform better when data is limited, but it is a 'band-aid'. It cannot create information that isn't present in the training set; only more data can do that."
+  },
+  {
+    "id": "regu-025",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpretation",
+    "difficulty": "advanced",
+    "style": "misconception",
+    "playlist": "machine-learning",
+    "question": "A user thinks that a high L2 penalty means the model is 'more complex'. Why is the opposite true?",
+    "options": [
+      "High regularization restricts the coefficients, making the final model function 'flatter' and less capable of following training noise, which is the definition of a simpler model.",
+      "High penalty values make the model take more parameters into account.",
+      "A high penalty just changes the scale of the output, not the complexity.",
+      "Complexity is only defined by the number of features, not the penalty."
+    ],
+    "correctIndex": 0,
+    "explanation": "Complexity in this context refers to the model's ability to fit noise. Regularization constrains the weights, forcing the model to be 'simpler' (less sensitive to inputs), which is the antithesis of a complex, overfitted model."
+  },
+  {
+    "id": "regu-001",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 Sparsity",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "If you observe that L1 regularisation has shrunk five of your input feature coefficients to exactly zero, what does this imply about the structure of your data in relation to the model?",
+    "options": [
+      "The five features are redundant or provide negligible predictive power relative to the target.",
+      "The model is underfitting because it has discarded too much information.",
+      "The L1 penalty was set too low, causing the model to struggle to select features.",
+      "The target variable is perfectly correlated with the remaining features."
+    ],
+    "correctIndex": 0,
+    "explanation": "L1 (Lasso) acts as an automatic feature selector by driving less important coefficients to zero. The tempting wrong answer is that the model is underfitting; however, L1 is intended to reduce complexity by removing noise, and zero coefficients simply indicate those features don't contribute significantly to the loss function reduction."
+  },
+  {
+    "id": "regu-002",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 Penalty",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "You are training a model where two input features are highly correlated (multicollinearity). If you apply L2 regularisation, how will the coefficients for these two features likely behave?",
+    "options": [
+      "The coefficients will be shrunk toward each other, sharing the 'burden' of the prediction.",
+      "One coefficient will be set to zero while the other captures the full effect.",
+      "The coefficients will become extremely large to compensate for the penalty.",
+      "The coefficients will oscillate between positive and negative values to cancel each other out."
+    ],
+    "correctIndex": 0,
+    "explanation": "L2 (Ridge) tends to distribute the weight among correlated features, shrinking them together. The tempting wrong answer is that one goes to zero, which is the specific behavior of L1, not L2."
+  },
+  {
+    "id": "regu-003",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation Strength",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "In a cross-validation plot, you notice that as the L2 penalty (lambda) increases, the training error steadily increases, but the validation error starts to rise after an initial drop. What does this indicate?",
+    "options": [
+      "The model is transitioning from overfitting to underfitting.",
+      "The model is failing to learn the underlying patterns in the training set.",
+      "The L2 penalty is preventing the model from converging on the global minimum.",
+      "The learning rate is too high, causing the validation error to oscillate."
+    ],
+    "correctIndex": 0,
+    "explanation": "The initial drop in validation error represents the model overcoming overfitting. As lambda continues to increase, the model becomes too constrained (underfitting), causing both errors to rise. The tempting wrong answer is that the model fails to converge, but this typically manifests as erratic behavior, not a steady increase in error."
+  },
+  {
+    "id": "regu-004",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Geometric Intuition",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "Imagine the 'budget' of coefficients as a shape. L1 is a diamond, L2 is a circle. If the residual sum of squares contour touches the diamond at a corner, what is the visual interpretation?",
+    "options": [
+      "The point of contact occurs on an axis, resulting in at least one coefficient being zero.",
+      "The model has reached a point where all coefficients are of equal magnitude.",
+      "The model is perfectly balanced between L1 and L2 regularisation.",
+      "The solution is unstable because the diamond has no flat edges."
+    ],
+    "correctIndex": 0,
+    "explanation": "The 'corners' of the L1 diamond exist on the axes of the parameter space. Touching a corner forces a coordinate to zero. The tempting wrong answer is that this represents balance, but this geometry specifically explains why L1 produces sparse solutions while L2 (the circle) does not."
+  },
+  {
+    "id": "regu-005",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Coefficient Magnitude",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "After training a model with L2 regularisation, you realize the coefficients are still quite large. What is the most likely interpretation of this output?",
+    "options": [
+      "The penalty term (lambda) is set too small to exert meaningful pressure on the coefficients.",
+      "The dataset has an extremely small number of features relative to the number of samples.",
+      "The model is suffering from high bias rather than high variance.",
+      "The features were not scaled properly, causing L2 to misinterpret their importance."
+    ],
+    "correctIndex": 0,
+    "explanation": "If coefficients remain large, the regularisation constraint is too weak. The tempting wrong answer is improper feature scaling; while scaling is important, if the penalty is simply too small, no amount of scaling will prevent the coefficients from staying large."
+  },
+  {
+    "id": "regu-006",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Model Complexity",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "When comparing an unregularized model to an L2-regularized version, the L2 model shows higher training error but better generalisation. How do you interpret the 'loss' in training accuracy?",
+    "options": [
+      "It is a necessary sacrifice of training performance to reduce the model's sensitivity to noise.",
+      "The model is not complex enough to capture the signal in the data.",
+      "The L2 penalty is causing the model to prioritize speed over accuracy.",
+      "The model has discarded important features, leading to loss of predictive capacity."
+    ],
+    "correctIndex": 0,
+    "explanation": "Regularisation introduces bias to decrease variance. The 'loss' in training accuracy is the intentional reduction of overfitting. The tempting wrong answer is that the model isn't complex enough; in fact, the model is likely complex enough, but the penalty is correctly restricting it to prevent memorization."
+  },
+  {
+    "id": "regu-007",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Feature Importance",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "An L1-regularized model keeps feature A and drops feature B. If you know that A and B are highly correlated, what can you infer about the model's 'decision'?",
+    "options": [
+      "The model is indifferent to which feature it keeps, so it picked one arbitrarily to satisfy the sparsity constraint.",
+      "Feature A must have a stronger causal relationship with the target than feature B.",
+      "Feature B was likely contaminated with more measurement noise than feature A.",
+      "The model requires both features, but L1 is forcing it to choose only one."
+    ],
+    "correctIndex": 0,
+    "explanation": "When features are highly correlated, L1 tends to pick one and discard the others. It is often an arbitrary choice based on tiny fluctuations during training. The tempting wrong answer is that A is causal; L1 cannot infer causality, only statistical association."
+  },
+  {
+    "id": "regu-008",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Bias-Variance Tradeoff",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "If your model performance is 'stable' across different training subsets, but has a high error rate, what does this tell you about your regularisation approach?",
+    "options": [
+      "The current regularisation is likely too strong, inducing too much bias.",
+      "The current regularisation is too weak, allowing the model to be overfit.",
+      "The dataset lacks sufficient features to explain the target variable.",
+      "The model is suffering from high variance."
+    ],
+    "correctIndex": 0,
+    "explanation": "Stable but poor performance indicates high bias (underfitting). This usually happens when the penalty is so high that the model cannot capture the signal. The tempting wrong answer is high variance, but that would show high sensitivity to different training subsets, not stability."
+  },
+  {
+    "id": "regu-009",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Scale Sensitivity",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "You apply L2 regularisation without scaling your features. One feature ranges from 0 to 1, while another ranges from 0 to 1000. What is the consequence for your model?",
+    "options": [
+      "The penalty will disproportionately shrink the coefficient for the smaller-range feature, effectively ignoring it.",
+      "The model will automatically rescale the features during the L2 penalty calculation.",
+      "The model will correctly identify the 0-1000 feature as more important due to its larger magnitude.",
+      "The L2 penalty will treat both features equally regardless of their scale."
+    ],
+    "correctIndex": 0,
+    "explanation": "L2 penalizes the square of the coefficients. If a feature has a large scale, its coefficient will be small, and the penalty will have less effect on it. The tempting wrong answer is that the model handles it; L2 is mathematically sensitive to the scale of input features."
+  },
+  {
+    "id": "regu-010",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Elastic Net",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "You have a dataset with 1000 highly correlated features. L1 is failing to group them, and L2 is keeping too many irrelevant ones. What does the interpretation of an Elastic Net output suggest?",
+    "options": [
+      "It provides a balance, keeping groups of correlated features while still enforcing sparsity.",
+      "It will always default to L1 behavior because it is more computationally efficient.",
+      "It will set all coefficients to zero because it applies both penalties simultaneously.",
+      "It ignores correlation and treats every feature as an independent variable."
+    ],
+    "correctIndex": 0,
+    "explanation": "Elastic Net combines L1 and L2 to handle groups of correlated features (L2) while still providing sparsity (L1). The tempting wrong answer is that it sets everything to zero, which is a misunderstanding of how the two penalties interact."
+  },
+  {
+    "id": "regu-011",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Residual Sum of Squares",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "In a visual representation of the Loss Function, the 'bowl' is very flat in one direction. What does this indicate about your model coefficients?",
+    "options": [
+      "The model is sensitive to small changes in those specific coefficients, making it prone to overfitting.",
+      "The model is perfectly optimized because the loss is near zero.",
+      "The L2 regularisation is too strong, preventing the model from finding the bottom of the bowl.",
+      "The model is robust because the coefficients are already in the optimal range."
+    ],
+    "correctIndex": 0,
+    "explanation": "A flat 'bowl' (valley) means the loss is similar for many different values of the coefficient, often caused by multicollinearity. The model is unstable because a small change in data can shift the optimal coefficient significantly. The tempting wrong answer is that it's robust; a flat surface is the opposite of a well-defined, stable minimum."
+  },
+  {
+    "id": "regu-012",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Hyperparameter Tuning",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "You see a 'U-shaped' curve when plotting validation error against the regularisation parameter lambda. What is the interpretation of the point at the bottom of the 'U'?",
+    "options": [
+      "This is the optimal lambda where the model achieves the best balance between bias and variance.",
+      "This is the point where the model has the most complexity.",
+      "This is the point where L1 and L2 penalties have the least influence.",
+      "This is the maximum possible regularisation the model can sustain before breaking."
+    ],
+    "correctIndex": 0,
+    "explanation": "The bottom of the U-curve is the sweet spot for the bias-variance tradeoff. The tempting wrong answer is that it represents the most complexity; actually, moving away from this point toward the left (lower lambda) increases complexity/overfitting."
+  },
+  {
+    "id": "regu-013",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L2 and Convergence",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "How does adding an L2 penalty to a linear regression model affect the numerical stability of the solution?",
+    "options": [
+      "It makes the solution more stable by preventing coefficients from becoming excessively large.",
+      "It complicates the solution, making it impossible to reach a unique global minimum.",
+      "It has no effect on numerical stability, only on predictive accuracy.",
+      "It makes the model converge slower because it adds more calculations to every iteration."
+    ],
+    "correctIndex": 0,
+    "explanation": "L2 adds a penalty that keeps the cost function 'well-behaved,' ensuring a unique and stable solution even with multicollinearity. The tempting wrong answer is that it slows down convergence; in many cases, it actually helps gradient descent converge faster by rounding out the error surface."
+  },
+  {
+    "id": "regu-014",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation vs Data Size",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "If you significantly increase the number of training samples, how should you adjust your regularisation penalty (lambda)?",
+    "options": [
+      "You can typically decrease the lambda because the model has more data to 'anchor' its estimates.",
+      "You should increase the lambda to account for the increased complexity of the data.",
+      "Lambda should always remain the same regardless of sample size.",
+      "You should switch from L2 to L1 because larger datasets are inherently sparse."
+    ],
+    "correctIndex": 0,
+    "explanation": "With more data, the model is less prone to fitting noise, so the need for strong regularisation decreases. The tempting wrong answer is that lambda remains the same; good ML practice involves tuning hyperparameters whenever the data distribution or size changes significantly."
+  },
+  {
+    "id": "regu-015",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpreting Coefficients",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "You have two models: Model A (unregularized) and Model B (L2 regularized). Model B has smaller coefficients. How do you interpret the relationship between the two models?",
+    "options": [
+      "Model B is less sensitive to small, random fluctuations in the input data.",
+      "Model B is fundamentally less accurate than Model A on the training set.",
+      "Model A is using more advanced logic than Model B to solve the problem.",
+      "Model B has identified that the variables are less important than Model A thought."
+    ],
+    "correctIndex": 0,
+    "explanation": "Small coefficients in Model B mean that changes in the input don't lead to massive changes in the output, which is the definition of a less sensitive (more robust) model. The tempting wrong answer is that Model B is 'less accurate'; it is only less accurate on the training set, but usually more accurate on new, unseen data."
+  },
+  {
+    "id": "regu-016",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "L1 vs L2 Conceptual",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "If your goal is to identify which subset of features is actually driving the outcome, which regularisation would you interpret as more useful?",
+    "options": [
+      "L1, because it explicitly sets the influence of irrelevant features to zero.",
+      "L2, because it provides a more granular ranking of all features.",
+      "Neither, as both treat all features as equally important.",
+      "Only L1 if the features are uncorrelated, otherwise L2 is better."
+    ],
+    "correctIndex": 0,
+    "explanation": "L1 provides a clear 'yes/no' for feature inclusion (zero vs non-zero coefficients). L2 keeps all features, making it harder to discern which are truly irrelevant. The tempting wrong answer is L2 ranking; while you can look at the magnitude of coefficients in L2, it's less definitive than the 'zero-out' behavior of L1."
+  },
+  {
+    "id": "regu-017",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Complexity Interpretation",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "A model has a very high L2 penalty. What does this say about the model's 'view' of the world?",
+    "options": [
+      "It assumes that the relationship between inputs and outputs is very simple and smooth.",
+      "It assumes that the input data is extremely noisy and needs to be ignored.",
+      "It assumes that the number of features is greater than the number of observations.",
+      "It assumes that the target variable is constant."
+    ],
+    "correctIndex": 0,
+    "explanation": "L2 forces coefficients to be small, which corresponds to 'flatter' or 'smoother' functions. It assumes simplicity. The tempting wrong answer is that it ignores data; it doesn't ignore data, it just limits the complexity of the response to that data."
+  },
+  {
+    "id": "regu-018",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Underfitting",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "If you look at your model's coefficients and they are all nearly zero, what is the most likely interpretation?",
+    "options": [
+      "The regularisation parameter (lambda) is far too high, forcing the model to ignore the data entirely.",
+      "The input features have no relationship with the target variable.",
+      "The model is perfectly regularized.",
+      "The learning rate was too low to move the coefficients away from the origin."
+    ],
+    "correctIndex": 0,
+    "explanation": "When coefficients are nearly zero, the penalty has overwhelmed the signal from the data. The tempting wrong answer is that the features have no relationship; while possible, it is much more likely that the model was simply constrained too heavily by an aggressive lambda."
+  },
+  {
+    "id": "regu-019",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Multicollinearity",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "In a scenario with high multicollinearity, why might an L2-regularized model yield more reliable interpretations than an unregularized one?",
+    "options": [
+      "It prevents the model from assigning wild, opposing values to highly correlated features.",
+      "It automatically merges the features into a single, combined feature.",
+      "It forces the model to choose only the most reliable feature among the group.",
+      "It makes the gradient descent process independent of feature correlation."
+    ],
+    "correctIndex": 0,
+    "explanation": "Without L2, OLS can assign huge positive and negative values to correlated features to minimize error. L2 keeps these values in check, leading to more stable/interpretable coefficients. The tempting wrong answer is that it merges features; L2 doesn't merge them, it just weights them consistently."
+  },
+  {
+    "id": "regu-020",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Model Output",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "If you see a model's test error decreasing but its training error increasing, what is likely happening to the regularisation strength?",
+    "options": [
+      "You are likely increasing the regularisation strength, effectively reducing overfitting.",
+      "You are likely decreasing the regularisation strength, allowing the model to fit better.",
+      "The model is learning the noise in the training set.",
+      "The test set is becoming less representative of the training set."
+    ],
+    "correctIndex": 0,
+    "explanation": "Decreasing training performance while increasing test performance is the classic hallmark of adding regularisation—you are sacrificing training 'memory' for generalization. The tempting wrong answer is that the model is learning noise; that would cause both errors to diverge in the same direction."
+  },
+  {
+    "id": "regu-021",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Regularisation vs Outliers",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "How does L2 regularisation influence the model's response to an extreme outlier in the input data?",
+    "options": [
+      "It reduces the influence of the outlier by preventing the associated coefficient from growing large to 'chase' that point.",
+      "It ignores the outlier entirely by setting its coefficient to zero.",
+      "It forces the model to fit the outlier perfectly to maintain low residual error.",
+      "It has no impact, as the influence of an outlier is determined only by the loss function, not the penalty."
+    ],
+    "correctIndex": 0,
+    "explanation": "L2 penalizes large weights, so it prevents the model from over-adjusting to fit an extreme outlier that would otherwise require a large coefficient. The tempting wrong answer is that it ignores the outlier; it doesn't ignore it, it just prevents the model from skewing heavily to accommodate it."
+  },
+  {
+    "id": "regu-022",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Interpretation of Lambda",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "If you are told that your lambda is 'infinitely high', what should you expect the model's output to look like for any given input?",
+    "options": [
+      "The model will predict the mean of the target variable for every single input.",
+      "The model will predict a random value.",
+      "The model will predict based only on the feature with the highest variance.",
+      "The model will predict the target variable with 100% accuracy."
+    ],
+    "correctIndex": 0,
+    "explanation": "As lambda goes to infinity, the penalty for any non-zero coefficient becomes infinite. Thus, all coefficients are forced to zero, leaving only the intercept, which equals the average of the targets. The tempting wrong answer is predicting based on variance, which ignores the fact that the penalty acts on all features equally."
+  },
+  {
+    "id": "regu-023",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Feature Selection",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "You have 10,000 features and only 100 observations. Which approach is most interpretable?",
+    "options": [
+      "L1 regularisation, because it will produce a sparse model with a manageable number of features.",
+      "L2 regularisation, because it will keep all features and weight them slightly.",
+      "No regularisation, because the model will naturally find the most important features.",
+      "Randomly selecting 100 features and using no regularisation."
+    ],
+    "correctIndex": 0,
+    "explanation": "In a high-dimensional, low-sample regime, L1 is essential to reduce the feature space to something interpretable. The tempting wrong answer is L2; while it prevents overfitting, having 10,000 coefficients (even small ones) is not interpretable."
+  },
+  {
+    "id": "regu-024",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Gradient Descent",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "How does the 'pull' of the L1 penalty term differ from the L2 penalty term during the gradient descent update step?",
+    "options": [
+      "L1 applies a constant force toward zero, while L2 applies a force proportional to the current coefficient size.",
+      "L2 applies a constant force toward zero, while L1 applies a force proportional to the current coefficient size.",
+      "Both apply a constant force regardless of the coefficient size.",
+      "Both apply a force that increases exponentially as the coefficient approaches zero."
+    ],
+    "correctIndex": 0,
+    "explanation": "L1 subtracts a constant amount (the sign of the weight), whereas L2 subtracts a fraction of the weight itself. This is why L1 hits zero (constant force) and L2 only approaches it (proportional force). The tempting wrong answer is that they are both constant."
+  },
+  {
+    "id": "regu-025",
+    "topic": "regularisation-l1-l2",
+    "subtopic": "Model Robustness",
+    "difficulty": "advanced",
+    "style": "interpretation",
+    "playlist": "machine-learning",
+    "question": "A model trained with L2 regularisation is described as 'more robust' than the unregularized version. What does this mean in a practical sense?",
+    "options": [
+      "The model's predictions remain relatively consistent even if the training data is slightly modified.",
+      "The model's predictions are always closer to the true values.",
+      "The model is less likely to produce zero-valued coefficients.",
+      "The model is better at handling missing data values."
+    ],
+    "correctIndex": 0,
+    "explanation": "Robustness refers to low variance; the model doesn't jump wildly if you change a few data points. The tempting wrong answer is that it's closer to true values; it might actually be slightly further from the true values (bias) but more reliable (lower variance)."
+  }
+]
