@@ -16,9 +16,6 @@ A free, fan-made statistics and machine learning study tool based on [Josh Starm
 - Keyboard navigation — `1`–`4` to select, `Enter` to advance
 - Zero runtime API dependencies — all questions are static JSON
 
-## Design
-
-Whiteboard/chalk aesthetic inspired by Josh's teaching style. Key tokens: `paper` (#FAFAF7), `ink` (#1A1A2E), `sq-red` (#E8272A), `sq-green` (#5CBF2A). Fonts: Patrick Hand (headings/buttons), Nunito (body), Courier Prime (notation). See `CLAUDE.md` for the full design system reference.
 
 ## Setup
 
