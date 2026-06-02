@@ -64,6 +64,33 @@ scripts/
   generate-questions.ts Gemini-powered bulk generator (run locally)
   create-stubs.ts       Creates empty JSON stubs before generation
 ```
+## Contributing & Community
+
+BAM! Quiz is open source and community contributions are welcome — 
+especially question quality improvements.
+
+### Found a bad question?
+Open a [Question Quality Report](../../issues/new?template=question-quality-report.md) 
+and describe the issue. Please include the exact question text, what is wrong, 
+and ideally a reference to the relevant StatQuest video.
+
+### Found a bug?
+Open a [Bug Report](../../issues/new?template=bug-report.md) with steps to reproduce, 
+your device, and browser.
+
+### Want to suggest a feature?
+Open a [Feature Request](../../issues/new?template=feature-request.md). 
+High-quality suggestions may be picked up in future releases.
+
+### Pull Requests
+PRs are reviewed manually before merging. Please:
+- Use the PR template provided
+- For question fixes, cite the StatQuest video or source
+- Keep PRs small and focused — one fix or feature per PR
+- Do not bulk-edit question JSON files without prior discussion in an issue
+
+All merged contributions will be credited in the changelog.
+
 
 ## Credits
 
