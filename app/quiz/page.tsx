@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import QuizClient from "./QuizClient";
 
 export const metadata: Metadata = {
-  title: "Quiz — StatQuest Quiz",
+  title: "Quiz — BAM! Quiz",
   description: "Practice statistics with questions based on Josh Starmer's StatQuest playlist.",
 };
 

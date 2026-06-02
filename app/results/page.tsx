@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import ResultsClient from "./ResultsClient";
 
 export const metadata: Metadata = {
-  title: "Results — StatQuest Quiz",
+  title: "Results — BAM! Quiz",
   description: "See your quiz results and topic breakdown.",
 };
 
