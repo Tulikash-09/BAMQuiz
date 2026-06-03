@@ -2,6 +2,8 @@
 
 A free, fan-made statistics and machine learning study tool based on [Josh Starmer's StatQuest YouTube playlists](https://www.youtube.com/@statquest) — the best free ML and stats education on the internet.
 
+> Featured by Josh Starmer (creator of StatQuest) on LinkedIn.
+
 > Fan-made study tool. Not affiliated with or endorsed by Josh Starmer or StatQuest.
 
 ## Features
@@ -90,6 +92,13 @@ PRs are reviewed manually before merging. Please:
 - Do not bulk-edit question JSON files without prior discussion in an issue
 
 All merged contributions will be credited in the changelog.
+
+
+## Recognition
+
+This project was featured and shared by Josh Starmer, the creator of StatQuest,
+on LinkedIn. That kind of validation from the source material's author means a lot
+and reflects the StatQuest community's spirit of making statistics and ML accessible to everyone.
 
 
 ## Credits

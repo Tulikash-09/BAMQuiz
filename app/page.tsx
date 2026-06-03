@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Bookmark } from "lucide-react";
 import { STATS_TOPICS, ML_TOPICS } from "@/lib/topics";
 import HamburgerNav from "@/components/HamburgerNav";
 
@@ -179,6 +180,26 @@ export default function HomePage() {
 
       <WavyDivider />
 
+      {/* ── Josh shoutout banner ── */}
+      <div
+        className="w-full text-center"
+        style={{ background: "#EEEEEA", borderTop: "1px solid #D0D0CC", borderBottom: "1px solid #D0D0CC", padding: "12px 24px" }}
+      >
+        <span className="font-hand inline-flex items-center gap-2 justify-center" style={{ color: "#1A1A2E", fontSize: "15px" }}>
+          <Bookmark size={16} strokeWidth={1.5} style={{ verticalAlign: "middle" }} />
+          {" "}Featured by Josh Starmer, creator of StatQuest{" "}
+          <a
+            href="https://www.linkedin.com/posts/joshua-starmer-phd_statquest-statquest-statistics-activity-7467569384421662720-Kl1b"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="no-underline hover:underline"
+            style={{ color: "#E8272A" }}
+          >
+            View post →
+          </a>
+        </span>
+      </div>
+
       {/*
         FUTURE SCOPE: Playlist cards section commented out to avoid redundancy with hero CTAs.
         Potential future use: user profiles, timed quiz leaderboard, or playlist-specific progress tracking.
@@ -315,6 +336,11 @@ export default function HomePage() {
       <section id="about" className="max-w-5xl mx-auto px-5 sm:px-8 py-14">
         <div className="max-w-2xl border-2 border-ink rounded-sm p-5 sm:p-8 shadow-sketch" style={{ background: "#FFFBEA" }}>
           <h2 className="font-hand text-4xl text-ink mb-4">About BAM! Quiz</h2>
+          <p className="font-body text-muted leading-relaxed mb-5">
+            I&apos;m Tulika — a learner in ML, NLP and stats. I built this for myself while
+            going through Josh&apos;s playlists because watching videos and actually retaining
+            concepts are two very different things.
+          </p>
           <p className="font-body text-muted leading-relaxed mb-5">
             BAM! Quiz is a free, fan-made study tool built around Josh Starmer&apos;s StatQuest YouTube channel —
             hands down the clearest explanation of statistics and machine learning on the internet.
