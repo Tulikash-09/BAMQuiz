@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Patrick_Hand, Nunito, Courier_Prime } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 
 const patrickHand = Patrick_Hand({
   weight: ["400"],
@@ -48,6 +49,7 @@ export default function RootLayout({
       </head>
       <body className="bg-paper text-ink font-body antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );
